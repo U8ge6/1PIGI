@@ -1,0 +1,1630 @@
+
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>code_2025-07-31T14-50-48-565Z.html</title>
+                </head>
+                <body>
+                    <!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ניהול צילומים - מערכת מקומית</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            direction: rtl; /* הוספה: הגדרת כיוון כללי של הטקסט מימין לשמאל */
+            text-align: right; /* הוספה: יישור טקסט לימין כברירת מחדל */
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        #dateFormGroup {
+            cursor: pointer;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: right; /* הוספה: יישור של שדות קלט לימין */
+        }
+        textarea {
+            height: 80px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+            justify-content: flex-end; /* שינוי: יישור קבוצת הרדיו לימין */
+        }
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+        .radio-option input[type="radio"] {
+            width: auto;
+            margin-right: 5px; /* שינוי: הסטת הריבוע לצד שמאל של הטקסט */
+            margin-left: 0;
+        }
+        .radio-option label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+        .photographers-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .photographer-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+        }
+        .photographer-time {
+            margin-top: 8px;
+        }
+        .photographer-notes {
+            margin-top: 10px;
+            flex-grow: 1;
+        }
+        .photographer-notes textarea {
+            height: 60px;
+            font-size: 14px;
+        }
+        .siblings-input {
+            display: flex;
+            gap: 10px;
+        }
+        .siblings-input div {
+            flex: 1;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button.reset {
+            background-color: #f44336;
+        }
+        button.reset:hover {
+            background-color: #d32f2f;
+        }
+        .settings-panel {
+            display: none;
+            margin-top: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            flex-direction: row-reverse; /* שינוי: היפוך סדר הטאבים */
+        }
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            background-color: #f1f1f1;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            margin-left: 5px; /* שינוי: מרווח בצד שמאל במקום ימין */
+            margin-right: 0;
+            border-radius: 5px 5px 0 0;
+        }
+        .tab.active {
+            background-color: white;
+            border-bottom: 1px solid white;
+            margin-bottom: -1px;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .list-item span, .list-item input[type="text"] {
+            flex-grow: 1;
+            padding: 0 5px;
+        }
+        .list-item button {
+            padding: 3px 8px;
+            font-size: 12px;
+            margin-right: 5px; /* שינוי: מרווח בצד ימין במקום שמאל */
+            margin-left: 0;
+        }
+        .list-item button.delete {
+            background-color: #f44336;
+        }
+        .hidden {
+            display: none !important;
+        }
+        
+        .chuppah-time {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .chuppah-time-inner, #mitzvahTanzSectionWrapper {
+             display: flex;
+             align-items: center;
+             gap: 10px;
+        }
+         #mitzvahTanzSection {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+           }
+        #mitzvahTanzSection .radio-group {
+            margin-bottom: 0;
+            padding-left: 10px; /* שינוי: ריפוד בצד שמאל */
+            padding-right: 0;
+        }
+        #mitzvahTanzTimeContainer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+            padding-left: 10px; /* שינוי: ריפוד בצד שמאל */
+            padding-right: 0;
+        }
+        #mitzvahTanzTimeContainer label {
+            font-weight: normal;
+            margin-bottom: 0;
+        }
+        #mitzvahTanzTimeContainer input[type="time"], .chuppah-time-inner input[type="time"] {
+             width: auto;
+        }
+         .chuppah-time-inner label {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+        
+        .photographer-option-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .photographer-option-btn.active {
+            background-color: #f44336;
+        }
+        .photographer-option-btn:hover:not(.active) {
+            background-color: #0b7dda;
+        }
+        .individual-email-btn {
+            margin-top: 15px;
+            background-color: #007bff;
+        }
+        .individual-email-btn:hover {
+            background-color: #0056b3;
+        }
+        
+        .notes-and-details-subsection {
+            margin-top: 15px;
+        }
+        .notes-and-details-subsection textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 60px;
+            margin-bottom: 8px;
+        }
+        .notes-and-details-subsection label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .detail-buttons-group {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end; /* שינוי: יישור קבוצת הכפתורים לימין */
+        }
+        .detail-option-btn {
+            padding: 6px 12px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .detail-option-btn.active {
+            background-color: #f44336;
+        }
+        .detail-option-btn:hover:not(.active) {
+            background-color: #0b7dda;
+        }
+        
+        .date-input-wrapper {
+            direction: rtl; /* שינוי: יישור תאריך לימין */
+        }
+        #date {
+            text-align: right;
+        }
+        /* New styles for first name, last name, and email inputs */
+        .name-email-input {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end; /* Align at the bottom */
+            flex-direction: row-reverse; /* שינוי: היפוך סדר השדות */
+        }
+        .name-email-input .form-group {
+            flex: 1; /* Distribute space equally */
+            margin-bottom: 0; /* Remove extra margin */
+        }
+        .name-email-input input {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ניהול הזמנות צילומים</h1>
+
+        <div class="form-section">
+            <div class="form-group" id="dateFormGroup">
+                <label for="date">תאריך:</label>
+                <div class="date-input-wrapper">
+                    <input type="date" id="date" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="familyName">שם משפחה (לצורך זיהוי):</label>
+                <input type="text" id="familyName" placeholder="הזן שם משפחה" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hall">שם האולם:</label>
+                <input type="text" id="hall" list="halls" required>
+                <datalist id="halls"></datalist>
+            </div>
+
+            <div class="form-group">
+                <label>מיקום צילומים:</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" name="location" id="outside" value="outside">
+                        <label for="outside">צילומי חוץ</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="location" id="hallOutside" value="hallOutside" checked>
+                        <label for="hallOutside">מחוץ לאולם</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="location" id="insideHall" value="insideHall">
+                        <label for="insideHall">באולם</label>
+                    </div>
+                </div>
+                <input type="text" id="locationDetails" placeholder="פרטי מיקום צילומי חוץ" class="hidden">
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-group">
+                <label>כלה:</label>
+                <div class="siblings-input">
+                    <div>
+                        <label for="brideSiblings">אחים:</label>
+                        <input type="number" id="brideSiblings" min="0" placeholder="מספר אחים">
+                    </div>
+                    <div>
+                        <label for="brideMarried">נשואים:</label>
+                        <input type="number" id="brideMarried" min="0" placeholder="מספר נשואים">
+                    </div>
+                </div>
+                <div class="notes-and-details-subsection">
+                    <label for="brideNotes">הערות לכלה:</label>
+                    <textarea id="brideNotes" placeholder="פרטים נוספים או הערות לגבי הכלה..."></textarea>
+                    <div class="detail-buttons-group">
+                        <button id="brideOrphanFatherBtn" class="detail-option-btn">כלה יתומה מאבא</button>
+                        <button id="brideOrphanMotherBtn" class="detail-option-btn">כלה יתומה מאמא</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>חתן:</label>
+                <div class="siblings-input">
+                    <div>
+                        <label for="groomSiblings">אחים:</label>
+                        <input type="number" id="groomSiblings" min="0" placeholder="מספר אחים">
+                    </div>
+                    <div>
+                        <label for="groomMarried">נשואים:</label>
+                        <input type="number" id="groomMarried" min="0" placeholder="מספר נשואים">
+                    </div>
+                </div>
+                 <div class="notes-and-details-subsection">
+                    <label for="groomNotes">הערות לחתן:</label>
+                    <textarea id="groomNotes" placeholder="פרטים נוספים או הערות לגבי החתן..."></textarea>
+                    <div class="detail-buttons-group">
+                        <button id="groomOrphanFatherBtn" class="detail-option-btn">חתן יתום מאבא</button>
+                        <button id="groomOrphanMotherBtn" class="detail-option-btn">חתן יתום מאמא</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h3>בחירת צלמים:</h3>
+            <div class="photographers-grid">
+                <div class="photographer-box">
+                    <label for="photoGuy">צלם תמונות:</label>
+                    <select id="photoGuy">
+                        <option value="">-- בחר צלם --</option>
+                    </select>
+                    <div class="photographer-time">
+                        <label for="photoGuyTime">שעת התחלה:</label>
+                        <input type="time" id="photoGuyTime" value="15:00">
+                    </div>
+                    <div class="photographer-notes">
+                        <label for="photoGuyNotes">הערות:</label>
+                        <textarea id="photoGuyNotes" placeholder="הערות לצלם תמונות"></textarea>
+                    </div>
+                    <button id="noPhotographerDanceBtn" class="photographer-option-btn">אין צלמת</button>
+                    <button id="possibleNightPhotosForPhotoGuyBtn" class="photographer-option-btn">יתכן צילומי לילה</button>
+                    <button id="hasStudioPhotographerForPhotoGuyBtn" class="photographer-option-btn">יש צלמת סטודיו וריקודים</button>
+                    <button id="sendEmailToPhotoGuyBtn" class="individual-email-btn">שלח מייל לצלם זה</button>
+                </div>
+
+                <div class="photographer-box">
+                    <label for="videoGuy">צלם וידאו:</label>
+                    <select id="videoGuy">
+                        <option value="">-- בחר צלם --</option>
+                    </select>
+                    <div class="photographer-time">
+                        <label for="videoGuyTime">שעת התחלה:</label>
+                        <input type="time" id="videoGuyTime" value="16:30">
+                    </div>
+                    <div class="photographer-notes">
+                        <label for="videoGuyNotes">הערות:</label>
+                        <textarea id="videoGuyNotes" placeholder="הערות לצלם וידאו"></textarea>
+                    </div>
+                    <button id="womenDanceBtn" class="photographer-option-btn">לא לצלם בנשים</button>
+                    <button id="sendEmailToVideoGuyBtn" class="individual-email-btn">שלח מייל לצלם זה</button>
+                </div>
+
+                <div class="photographer-box">
+                    <label for="photoGirl">צלמת תמונות:</label>
+                    <select id="photoGirl">
+                        <option value="">-- בחר צלמת --</option>
+                    </select>
+                    <div class="photographer-time">
+                        <label for="photoGirlTime">שעת התחלה:</label>
+                        <input type="time" id="photoGirlTime" value="20:30">
+                    </div>
+                    <div class="photographer-notes">
+                        <label for="photoGirlNotes">הערות:</label>
+                        <textarea id="photoGirlNotes" placeholder="הערות לצלמת תמונות"></textarea>
+                    </div>
+                    <button id="studioDanceBtn" class="photographer-option-btn">את מצלמת סטודיו וריקודים</button>
+                    <button id="sendEmailToPhotoGirlBtn" class="individual-email-btn">שלח מייל לצלמת זו</button>
+                </div>
+
+                <div class="photographer-box">
+                    <label for="videoGirl">צלמת וידאו:</label>
+                    <select id="videoGirl">
+                        <option value="">-- בחר צלמת --</option>
+                    </select>
+                    <div class="photographer-time">
+                        <label for="videoGirlTime">שעת התחלה:</label>
+                        <input type="time" id="videoGirlTime" value="20:30">
+                    </div>
+                    <div class="photographer-notes">
+                        <label for="videoGirlNotes">הערות:</label>
+                        <textarea id="videoGirlNotes" placeholder="הערות לצלמת וידאו"></textarea>
+                    </div>
+                    <button id="sendEmailToVideoGirlBtn" class="individual-email-btn">שלח מייל לצלמת זו</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="chuppah-time">
+                <div class="chuppah-time-inner">
+                    <label for="chuppahTime">חופה בשעה:</label>
+                    <input type="time" id="chuppahTime" value="19:00">
+                </div>
+                <div id="mitzvahTanzSectionWrapper">
+                    <div id="mitzvahTanzSection" class="form-group">
+                        <label>מצווה טאנץ:</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" name="mitzvahTanzPresence" id="mitzvahTanzNo" value="no" checked>
+                                <label for="mitzvahTanzNo">אין</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" name="mitzvahTanzPresence" id="mitzvahTanzYes" value="yes">
+                                <label for="mitzvahTanzYes">יש</label>
+                            </div>
+                        </div>
+                        <div id="mitzvahTanzTimeContainer" class="hidden">
+                            <label for="newMitzvahTanzEndTime">עד שעה:</label>
+                            <input type="time" id="newMitzvahTanzEndTime" value="02:00">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-group">
+                <label for="notes">הערות נוספות (כללי):</label>
+                <textarea id="notes" placeholder="לדוגמה: הגעה מוקדמת של הצלם בשעה 14:30"></textarea>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="sendEmail">שלח מייל לכולם</button>
+            <button id="saveDraft">שמור טיוטה</button>
+            <button id="settingsBtn">הגדרות</button>
+            <button type="reset" class="reset">נקה טופס</button>
+        </div>
+
+        <div id="settingsPanel" class="settings-panel">
+            <div class="tabs">
+                <div class="tab active" data-tab="hallsTab">אולמות</div>
+                <div class="tab" data-tab="photographersTab">צלמים</div>
+                <div class="tab" data-tab="videographersTab">צלמי וידאו</div>
+                <div class="tab" data-tab="photographerGirlsTab">צלמות</div>
+                <div class="tab" data-tab="videographerGirlsTab">צלמות וידאו</div>
+                <div class="tab" data-tab="dataTab">ייבוא/ייצוא</div>
+            </div>
+
+            <div id="hallsTab" class="tab-content active">
+                <h3>ניהול אולמות</h3>
+                <div class="form-group">
+                    <input type="text" id="newHall" placeholder="שם אולם חדש">
+                    <button id="addHall">הוסף אולם</button>
+                </div>
+                <div id="hallsList"></div>
+            </div>
+
+            <div id="photographersTab" class="tab-content">
+                <h3>ניהול צלמים</h3>
+                <div class="name-email-input">
+                    <div class="form-group">
+                        <label for="newPhotographerFirstName">שם פרטי:</label>
+                        <input type="text" id="newPhotographerFirstName" placeholder="שם פרטי">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPhotographerLastName">שם משפחה:</label>
+                        <input type="text" id="newPhotographerLastName" placeholder="שם משפחה">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPhotographerEmail">מייל:</label>
+                        <input type="email" id="newPhotographerEmail" placeholder="מייל">
+                    </div>
+                </div>
+                <button id="addPhotographer">הוסף צלם</button>
+                <div id="photographersList"></div>
+            </div>
+
+            <div id="videographersTab" class="tab-content">
+                <h3>ניהול צלמי וידאו</h3>
+                <div class="name-email-input">
+                    <div class="form-group">
+                        <label for="newVideographerFirstName">שם פרטי:</label>
+                        <input type="text" id="newVideographerFirstName" placeholder="שם פרטי">
+                    </div>
+                    <div class="form-group">
+                        <label for="newVideographerLastName">שם משפחה:</label>
+                        <input type="text" id="newVideographerLastName" placeholder="שם משפחה">
+                    </div>
+                    <div class="form-group">
+                        <label for="newVideographerEmail">מייל:</label>
+                        <input type="email" id="newVideographerEmail" placeholder="מייל">
+                    </div>
+                </div>
+                <button id="addVideographer">הוסף צלם</button>
+                <div id="videographersList"></div>
+            </div>
+
+            <div id="photographerGirlsTab" class="tab-content">
+                <h3>ניהול צלמות</h3>
+                <div class="name-email-input">
+                    <div class="form-group">
+                        <label for="newPhotographerGirlFirstName">שם פרטי:</label>
+                        <input type="text" id="newPhotographerGirlFirstName" placeholder="שם פרטי">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPhotographerGirlLastName">שם משפחה:</label>
+                        <input type="text" id="newPhotographerGirlLastName" placeholder="שם משפחה">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPhotographerGirlEmail">מייל:</label>
+                        <input type="email" id="newPhotographerGirlEmail" placeholder="מייל">
+                    </div>
+                </div>
+                <button id="addPhotographerGirl">הוסף צלמת</button>
+                <div id="photographerGirlsList"></div>
+            </div>
+
+            <div id="videographerGirlsTab" class="tab-content">
+                <h3>ניהול צלמות וידאו</h3>
+                <div class="name-email-input">
+                    <div class="form-group">
+                        <label for="newVideographerGirlFirstName">שם פרטי:</label>
+                        <input type="text" id="newVideographerGirlFirstName" placeholder="שם פרטי">
+                    </div>
+                    <div class="form-group">
+                        <label for="newVideographerGirlLastName">שם משפחה:</label>
+                        <input type="text" id="newVideographerGirlLastName" placeholder="שם משפחה">
+                    </div>
+                    <div class="form-group">
+                        <label for="newVideographerGirlEmail">מייל:</label>
+                        <input type="email" id="newVideographerGirlEmail" placeholder="מייל">
+                    </div>
+                </div>
+                <button id="addVideographerGirl">הוסף צלמת</button>
+                <div id="videographerGirlsList"></div>
+            </div>
+
+            <div id="dataTab" class="tab-content">
+                <h3>גיבוי ושחזור נתונים</h3>
+                <div class="form-group">
+                    <button id="exportData">ייצוא כל הנתונים</button>
+                    <p>שמור את הקובץ שיורד למקום בטוח</p>
+                </div>
+                <div class="form-group">
+                    <label for="importFile">ייבוא נתונים מגיבוי:</label>
+                    <input type="file" id="importFile" accept=".json">
+                    <button id="importData" disabled>ייבוא נתונים</button>
+                    <p>אזהרה: ייבוא נתונים ידרוס את כל הנתונים הקיימים!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // אחסון נתונים ב-localStorage
+        let appData = {
+            halls: [
+                "אשדוד פרידמן אור מאיר",
+                "אשדוד פרידמן יד צבי",
+                "אשדוד פרידמן שמחת אבות",
+                "אשדוד האצולה",
+                "בית שמש בית ברכה",
+                "בית שמש הכרמים  כרם שלמה",
+                "בית שמש הכרמים כרם בתיה",
+                "בית שמש כינור דוד",
+                "בית שמש פהרנד",
+                "בית\"ר גולדן סקיי",
+                "בני ברק ארמונות חן ברקת",
+                "בני ברק ארמונות חן פרדו",
+                "בני ברק ארמונות חן שוהם",
+                "בני ברק הדודאים",
+                "בני ברק הדקל",
+                "בני ברק היכלי מלכות",
+                "בני ברק וגשל",
+                "בני ברק כתר הרימון",
+                "בני ברק נאות ירושלים",
+                "בני ברק פרידמן  וולף",
+                "בני ברק פרידמן שטרן",
+                "בני ברק קונקורד",
+                "בני ברק רויאל פנינה",
+                "בני ברק רויאל קריסטל",
+                "ירושלים אופוריה",
+                "ירושלים ארמונות אור וולף א",
+                "ירושלים ארמונות אור וולף ב",
+                "ירושלים גוטניק",
+                "ירושלים גוטניק הדר",
+                "ירושלים לאבל",
+                "ירושלים מלון גני ירושלים",
+                "ירושלים נחלת יהודה",
+                "ירושלים פבליון",
+                "ירושלים שירת ירושלים",
+                "קרית ספר בריליאנט",
+                "קרית ספר גינת המלך",
+                "קרית ספר גן הדסים",
+                "קרית ספר נוף עילית"
+            ],
+            photographers: [
+                "אביאל זכריה A.z2863041@gmail.com",
+                "אייל לוי eyalevi35@gmail.com",
+                "ארז פיניאן Erez1273@gmail.com",
+                "חן קייסי livnati100@walla.co.il",
+                "יוסי בורמד YOSSIBURMAD@GMAIL.COM",
+                "יעקב קמיל ykart99@gmail.com",
+                "נתנאל אלחדד netanel4201@gmail.com",
+                "עזריאל משה 1azri1@gmail.com",
+                "ציון דניאלי zion12444@gmail.com",
+                "ראובן אדרי er0547795754@gmail.com",
+                "שלומי ויזאן studiovizan@gmail.com"
+            ],
+            videographers: [
+                "אוראל כץ orelkats1@gmail.com",
+                "ארז בן שלום abroll444@gmail.com",
+                "שמעון בורמד shimondavidburmad@gmail.com",
+                "שניאור לביא shlavy@gmail.com",
+                "מתן כהן matancohen1986@gmail.com",
+                "מיכאל מזרחי v0503502211@gmail.com",
+                "איתמר נוגריאן itamar204@gmail.com",
+                "יניב צור yanivtzur1@gmail.com",
+                "עמיחי ami8817445@gmail.com",
+                "משה טבק moshetabak96@gmail.com",
+                "רפאל r0527151578@gmail.com",
+                "אמי כהן frameproami@yahoo.com",
+                "אורי מנדלסון urimendelson82@gmail.com",
+                "מנחם קסלר menkess73@yahoo.com",
+                "יוסי דיין y.dayan10@gmail.com",
+                "שוקי מכבי yehoshua01@gmail.com"
+            ],
+            photographerGirls: [
+                "ליאת אשכנזי מימון liatmaimon@gmail.com",
+                "מאיה אליהו ZMAN.MAYA@GMAIL.COM",
+                "רבקה שחר rivka2769@gmail.com",
+                "חיה רוט ch0586272161@gmail.com",
+                "עטרת ad0547951158@gmail.com",
+                "נעה noashir669@gmail.com",
+                "רחלי בורר racheli4099@gmail.com",
+                "שלומית SHLOMITSH21@hotmail.com",
+                "זיוה zivaishere@gmail.com",
+                "דנה dana150166@gmail.com",
+                "יהודית ויסמן yoodit1369@gmail.com",
+                "ענבר חג'ג' inbarhajaj555@gmail.com",
+                "הודיה פרידלהנדר hodayaa123@gmail.com",
+                "רויטל סיילס revitalsilas@gmail.com",
+                "איילת לוי al3113029@gmail.com",
+                "דינה חזן d0527625021@gmail.com",
+                "רבקי פרטיג rivki052@gmail.com",
+                "אסתי שולמן e0534112483@gmail.com",
+                "שרה פיק sarahtsalemet@gmail.com"
+            ],
+            videographerGirls: [
+                "מונה מור monamor3@gmail.com",
+                "רחלי בורר racheli4099@gmail.com",
+                "יניב צור yanivtzur1@gmail.com",
+                "צביה ולדמן tzivwaldman@gmail.com",
+                "יהודית סמט yehudit595@gmail.com",
+                "אביגיל avigail432v@gmail.com",
+                "יעל לוי yaellevi8@gmail.com",
+                "חוי גודמן chavi.abrams@gmail.com",
+                "נועה שיר שלו noashir669@gmail.com"
+            ],
+            drafts: []
+        };
+
+        function getHebrewDayOfWeek(dateStr) {
+            const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+            const date = new Date(dateStr);
+            return 'יום ' + days[date.getDay()];
+        }
+
+        function loadData() {
+            const savedData = localStorage.getItem('photographyManagerData');
+            if (savedData) {
+                appData = JSON.parse(savedData);
+                if (typeof appData.drafts === 'undefined') {
+                    appData.drafts = [];
+                }
+            }
+
+            const hallsDatalist = document.getElementById('halls');
+            hallsDatalist.innerHTML = '';
+            appData.halls.forEach(hall => {
+                const option = document.createElement('option');
+                option.value = hall;
+                hallsDatalist.appendChild(option);
+            });
+
+            loadPhotographers();
+        }
+
+        function loadPhotographers() {
+            const photoGuySelect = document.getElementById('photoGuy');
+            const videoGuySelect = document.getElementById('videoGuy');
+            const photoGirlSelect = document.getElementById('photoGirl');
+            const videoGirlSelect = document.getElementById('videoGirl');
+
+            photoGuySelect.innerHTML = '<option value="">-- בחר צלם --</option>';
+            videoGuySelect.innerHTML = '<option value="">-- בחר צלם --</option>';
+            photoGirlSelect.innerHTML = '<option value="">-- בחר צלמת --</option>';
+            videoGirlSelect.innerHTML = '<option value="">-- בחר צלמת --</option>';
+
+            appData.photographers.forEach(photographer => {
+                const option = document.createElement('option');
+                option.value = photographer;
+                // Display full name for photographers
+                const parts = photographer.split(' ');
+                option.textContent = parts.length > 1 ? `${parts[0]} ${parts[1]}` : parts[0];
+                photoGuySelect.appendChild(option.cloneNode(true));
+            });
+
+            appData.videographers.forEach(videographer => {
+                const option = document.createElement('option');
+                option.value = videographer;
+                // Display full name for videographers
+                const parts = videographer.split(' ');
+                option.textContent = parts.length > 1 ? `${parts[0]} ${parts[1]}` : parts[0];
+                videoGuySelect.appendChild(option);
+            });
+
+            appData.photographerGirls.forEach(photographerGirl => {
+                const option = document.createElement('option');
+                option.value = photographerGirl;
+                // Display full name for photographer girls
+                const parts = photographerGirl.split(' ');
+                option.textContent = parts.length > 1 ? `${parts[0]} ${parts[1]}` : parts[0];
+                photoGirlSelect.appendChild(option);
+            });
+
+            appData.videographerGirls.forEach(videographerGirl => {
+                const option = document.createElement('option');
+                option.value = videographerGirl;
+                // Display full name for videographer girls
+                const parts = videographerGirl.split(' ');
+                option.textContent = parts.length > 1 ? `${parts[0]} ${parts[1]}` : parts[0];
+                videoGirlSelect.appendChild(option);
+            });
+
+            updateSettingsLists();
+        }
+
+        function updateSettingsLists() {
+            document.getElementById('hallsList').innerHTML = appData.halls.map(hall => `
+                <div class="list-item">
+                    <span id="hall-${hall.replace(/\s/g, '_')}">${hall}</span>
+                    <input type="text" id="edit-hall-${hall.replace(/\s/g, '_')}" value="${hall}" class="hidden" />
+                    <button onclick="editItem('halls', '${hall}')">ערוך</button>
+                    <button class="delete" onclick="removeItem('halls', '${hall}')">מחק</button>
+                </div>
+            `).join('');
+
+            document.getElementById('photographersList').innerHTML = appData.photographers.map(photographer => `
+                <div class="list-item">
+                    <span id="photographer-${photographer.replace(/\s/g, '_')}">${photographer}</span>
+                    <input type="text" id="edit-photographer-${photographer.replace(/\s/g, '_')}" value="${photographer}" class="hidden" />
+                    <button onclick="editItem('photographers', '${photographer}')">ערוך</button>
+                    <button class="delete" onclick="removeItem('photographers', '${photographer}')">מחק</button>
+                </div>
+            `).join('');
+
+            document.getElementById('videographersList').innerHTML = appData.videographers.map(videographer => `
+                <div class="list-item">
+                    <span id="videographer-${videographer.replace(/\s/g, '_')}">${videographer}</span>
+                    <input type="text" id="edit-videographer-${videographer.replace(/\s/g, '_')}" value="${videographer}" class="hidden" />
+                    <button onclick="editItem('videographers', '${videographer}')">ערוך</button>
+                    <button class="delete" onclick="removeItem('videographers', '${videographer}')">מחק</button>
+                </div>
+            `).join('');
+
+            document.getElementById('photographerGirlsList').innerHTML = appData.photographerGirls.map(photographerGirl => `
+                <div class="list-item">
+                    <span id="photographerGirl-${photographerGirl.replace(/\s/g, '_')}">${photographerGirl}</span>
+                    <input type="text" id="edit-photographerGirl-${photographerGirl.replace(/\s/g, '_')}" value="${photographerGirl}" class="hidden" />
+                    <button onclick="editItem('photographerGirls', '${photographerGirl}')">ערוך</button>
+                    <button class="delete" onclick="removeItem('photographerGirls', '${photographerGirl}')">מחק</button>
+                </div>
+            `).join('');
+
+            document.getElementById('videographerGirlsList').innerHTML = appData.videographerGirls.map(videographerGirl => `
+                <div class="list-item">
+                    <span id="videographerGirl-${videographerGirl.replace(/\s/g, '_')}">${videographerGirl}</span>
+                    <input type="text" id="edit-videographerGirl-${videographerGirl.replace(/\s/g, '_')}" value="${videographerGirl}" class="hidden" />
+                    <button onclick="editItem('videographerGirls', '${videographerGirl}')">ערוך</button>
+                    <button class="delete" onclick="removeItem('videographerGirls', '${videographerGirl}')">מחק</button>
+                </div>
+            `).join('');
+        }
+
+        function removeItem(listName, item) {
+            appData[listName] = appData[listName].filter(i => i !== item);
+            saveData();
+            if (isPhotographerListType(listName)) {
+                loadPhotographers();
+            } else if (listName === 'halls') {
+                loadData();
+            } else {
+                 updateSettingsLists();
+            }
+        }
+
+        function editItem(listName, item) {
+            const idPrefixMap = {
+                'halls': 'hall',
+                'photographers': 'photographer',
+                'videographers': 'videographer',
+                'photographerGirls': 'photographerGirl',
+                'videographerGirls': 'videographerGirl'
+            };
+            const itemPrefix = idPrefixMap[listName];
+
+            const safeItem = item.replace(/\s/g, '_');
+            const spanId = `${itemPrefix}-${safeItem}`;
+            const inputId = `edit-${itemPrefix}-${safeItem}`;
+            const spanElement = document.getElementById(spanId);
+            const inputElement = document.getElementById(inputId);
+            const editButton = spanElement.parentElement.querySelector('button:first-of-type');
+
+
+            if (spanElement.classList.contains('hidden')) {
+                const newValue = inputElement.value.trim();
+                const originalItem = item;
+
+                if (newValue && newValue !== originalItem) {
+                    if (isPhotographerListType(listName) && !/\S+@\S+\.\S+/.test(newValue)) {
+                        alert('עבור צלמים, יש להזין שם ומייל תקין (לדוגמה: דוד לוי david@example.com)');
+                        return;
+                    }
+                    if (appData[listName].some(existingItem =>
+                        existingItem.toLowerCase() === newValue.toLowerCase() && existingItem.toLowerCase() !== originalItem.toLowerCase()
+                    )) {
+                        alert('הפריט כבר קיים ברשימה.');
+                        return;
+                    }
+
+                    const itemIndex = appData[listName].indexOf(originalItem);
+                    if (itemIndex > -1) {
+                        appData[listName][itemIndex] = newValue;
+                        appData[listName].sort((a, b) => a.localeCompare(b, 'he'));
+                        saveData();
+                        if (isPhotographerListType(listName)) {
+                            loadPhotographers();
+                        } else {
+                            updateSettingsLists();
+                        }
+                    }
+                } else if (newValue === originalItem) {
+                    spanElement.classList.remove('hidden');
+                    inputElement.classList.add('hidden');
+                    editButton.textContent = 'ערוך';
+                    editButton.onclick = () => editItem(listName, originalItem);
+                    return;
+                } else if (!newValue) {
+                    inputElement.value = originalItem;
+                    spanElement.classList.remove('hidden');
+                    inputElement.classList.add('hidden');
+                    editButton.textContent = 'ערוך';
+                    editButton.onclick = () => editItem(listName, originalItem);
+                    alert('שם הפריט לא יכול להיות ריק. השינויים לא נשמרו.');
+                    return;
+                }
+            } else {
+                spanElement.classList.add('hidden');
+                inputElement.classList.remove('hidden');
+                inputElement.focus();
+                editButton.textContent = 'שמור';
+                editButton.onclick = () => editItem(listName, item);
+            }
+        }
+
+        function isPhotographerListType(listName) {
+            return ['photographers', 'videographers', 'photographerGirls', 'videographerGirls'].includes(listName);
+        }
+
+        function saveData() {
+            localStorage.setItem('photographyManagerData', JSON.stringify(appData));
+        }
+
+        function collectFormData() {
+            const location = document.querySelector('input[name="location"]:checked').value;
+            let locationDetails = '';
+
+            if (location === 'outside') {
+                locationDetails = document.getElementById('locationDetails').value;
+            } else if (location === 'insideHall') {
+                locationDetails = 'באולם';
+            } else {
+                locationDetails = 'מחוץ לאולם';
+            }
+
+            return {
+                date: document.getElementById('date').value,
+                familyName: document.getElementById('familyName').value,
+                hall: document.getElementById('hall').value,
+                location: location,
+                locationDetails: locationDetails,
+                brideSiblings: document.getElementById('brideSiblings').value,
+                brideMarried: document.getElementById('brideMarried').value,
+                brideNotes: document.getElementById('brideNotes').value,
+                brideOrphanFather: document.getElementById('brideOrphanFatherBtn').classList.contains('active'),
+                brideOrphanMother: document.getElementById('brideOrphanMotherBtn').classList.contains('active'),
+                groomSiblings: document.getElementById('groomSiblings').value,
+                groomMarried: document.getElementById('groomMarried').value,
+                groomNotes: document.getElementById('groomNotes').value,
+                groomOrphanFather: document.getElementById('groomOrphanFatherBtn').classList.contains('active'),
+                groomOrphanMother: document.getElementById('groomOrphanMotherBtn').classList.contains('active'),
+                photoGuy: document.getElementById('photoGuy').value,
+                photoGuyTime: document.getElementById('photoGuyTime').value,
+                photoGuyNotes: document.getElementById('photoGuyNotes').value,
+                videoGuy: document.getElementById('videoGuy').value,
+                videoGuyTime: document.getElementById('videoGuyTime').value,
+                videoGuyNotes: document.getElementById('videoGuyNotes').value,
+                photoGirl: document.getElementById('photoGirl').value,
+                photoGirlTime: document.getElementById('photoGirlTime').value,
+                photoGirlNotes: document.getElementById('photoGirlNotes').value,
+                videoGirl: document.getElementById('videoGirl').value,
+                videoGirlTime: document.getElementById('videoGirlTime').value,
+                videoGirlNotes: document.getElementById('videoGirlNotes').value,
+                chuppahTime: document.getElementById('chuppahTime').value,
+
+                mitzvahTanzPresent: document.getElementById('mitzvahTanzYes').checked,
+                newMitzvahTanzEndTime: document.getElementById('newMitzvahTanzEndTime').value,
+
+                possibleNightPhotosForPhotoGuy: document.getElementById('possibleNightPhotosForPhotoGuyBtn').classList.contains('active'),
+                hasStudioPhotographerForPhotoGuy: document.getElementById('hasStudioPhotographerForPhotoGuyBtn').classList.contains('active'),
+
+                studioDance: document.getElementById('studioDanceBtn').classList.contains('active'),
+                noPhotographerDance: document.getElementById('noPhotographerDanceBtn').classList.contains('active'),
+                womenDance: document.getElementById('womenDanceBtn').classList.contains('active'),
+                notes: document.getElementById('notes').value,
+                timestamp: new Date().toISOString()
+            };
+        }
+
+        function validateForm(data) {
+            if (!data.date || !data.familyName || !data.hall) {
+                alert('אנא מלא את כל השדות החובה: תאריך, שם משפחה ושם האולם');
+                return false;
+            }
+
+            if ((data.brideSiblings && data.brideMarried && parseInt(data.brideMarried) > parseInt(data.brideSiblings)) ||
+                (data.groomSiblings && data.groomMarried && parseInt(data.groomMarried) > parseInt(data.groomSiblings))) {
+                alert('מספר הנשואים לא יכול להיות גדול ממספר האחים');
+                return false;
+            }
+            return true;
+        }
+
+        function openGmailWithDetails(data) {
+            if (!data.photoGuy && !data.videoGuy && !data.photoGirl && !data.videoGirl) {
+                alert('אנא בחר לפחות צלם אחד לשליחה כוללת');
+                return;
+            }
+
+            const recipients = [];
+            if (data.photoGuy) recipients.push(extractEmail(data.photoGuy));
+            if (data.videoGuy) recipients.push(extractEmail(data.videoGuy));
+            if (data.photoGirl) recipients.push(extractEmail(data.photoGirl));
+            if (data.videoGirl) recipients.push(extractEmail(data.videoGirl));
+
+            const hebrewDateFullForSubject = data.date.split('-').reverse().join('/');
+            const dayOfWeek = getHebrewDayOfWeek(data.date);
+            const subject = `זמנים ${dayOfWeek} ${hebrewDateFullForSubject} ${data.familyName}`;
+
+            const dateObj = new Date(data.date);
+            const hebrewDateShort = `${dateObj.getDate()}/${dateObj.getMonth() + 1}`;
+
+            const line1 = `${dayOfWeek} ${hebrewDateShort} אולמי ${data.hall} ${data.familyName.startsWith('משפחת ') ? '' : 'משפחת '}${data.familyName}`;
+
+            let locationOutputLine = '';
+            if (data.location === 'outside') {
+                locationOutputLine = `צילומי חוץ: ${data.locationDetails}`;
+            } else if (data.location === 'hallOutside') {
+                locationOutputLine = 'צילום מחוץ לאולם';
+            } else if (data.location === 'insideHall') {
+                locationOutputLine = 'צילום באולם';
+            }
+
+            let emailBody = line1;
+            if (locationOutputLine.trim()) {
+                emailBody += `\n${locationOutputLine.trim()}`;
+            }
+
+            emailBody += `\nחופה בשעה: ${data.chuppahTime}`;
+
+            const brideSiblingsText = data.brideSiblings ? `${data.brideSiblings}/${data.brideMarried || '0'}` : 'לא צוין';
+            let brideLine = `כלה: ${brideSiblingsText}`;
+            let brideOrphanInfo = [];
+            if (data.brideOrphanFather) {
+                brideOrphanInfo.push("יתומה מאבא");
+            }
+            if (data.brideOrphanMother) {
+                brideOrphanInfo.push("יתומה מאמא");
+            }
+            if (brideOrphanInfo.length > 0) {
+                brideLine += ` (${brideOrphanInfo.join(' ו')})`;
+            }
+            emailBody += `\n${brideLine}`;
+
+            const groomSiblingsText = data.groomSiblings ? `${data.groomSiblings}/${data.groomMarried || '0'}` : 'לא צוין';
+            let groomLine = `חתן: ${groomSiblingsText}`;
+            let groomOrphanInfo = [];
+            if (data.groomOrphanFather) {
+                groomOrphanInfo.push("יתום מאבא");
+            }
+            if (data.groomOrphanMother) {
+                groomOrphanInfo.push("יתום מאמא");
+            }
+            if (groomOrphanInfo.length > 0) {
+                groomLine += ` (${groomOrphanInfo.join(' ו')})`;
+            }
+            emailBody += `\n${groomLine}`;
+
+            let combinedNotesArray = [];
+            if (data.notes && data.notes.trim() !== '') {
+                combinedNotesArray.push(data.notes.trim());
+            }
+            if (data.mitzvahTanzPresent && data.newMitzvahTanzEndTime) {
+                combinedNotesArray.push(`יש מצווה טאנץ עד השעה ${data.newMitzvahTanzEndTime}`);
+            }
+            if (data.possibleNightPhotosForPhotoGuy) {
+                combinedNotesArray.push('יתכן צילומי לילה');
+            }
+            if (data.studioDance && data.photoGirl && data.photoGirl.trim() !== '') {
+                const photoGirlName = data.photoGirl.split(' ')[0];
+                combinedNotesArray.push(`${photoGirlName} מצלמת סטודיו`);
+            }
+
+            if (combinedNotesArray.length > 0) {
+                emailBody += `\n\nהערות:\n` + combinedNotesArray.join('\n');
+            }
+
+            emailBody += `\n\nצוות צילום:`;
+
+            const photographersListArray = [];
+            let firstPhotographerInList = true;
+
+            if (data.photoGuy) {
+                if (!firstPhotographerInList) photographersListArray.push('~~~~~~~~~~~~~~~~~~~~~~');
+                photographersListArray.push('>> צלם תמונות <<');
+                // Display full name for photo guy in email body
+                const photoGuyParts = data.photoGuy.split(' ');
+                photographersListArray.push(`צלם: ${photoGuyParts.length > 1 ? `${photoGuyParts[0]} ${photoGuyParts[1]}` : photoGuyParts[0]}`);
+                photographersListArray.push(`שעה: ${data.photoGuyTime}`);
+                if (data.photoGuyNotes && data.photoGuyNotes.trim() !== '') {
+                     photographersListArray.push(`הערות: ${data.photoGuyNotes.trim()}`);
+                }
+                if (data.noPhotographerDance) photographersListArray.push('אין צלמת');
+                firstPhotographerInList = false;
+            }
+
+            if (data.videoGuy) {
+                if (!firstPhotographerInList) photographersListArray.push('~~~~~~~~~~~~~~~~~~~~~~');
+                photographersListArray.push('>> צלם וידאו <<');
+                // Display full name for video guy in email body
+                const videoGuyParts = data.videoGuy.split(' ');
+                photographersListArray.push(`צלם: ${videoGuyParts.length > 1 ? `${videoGuyParts[0]} ${videoGuyParts[1]}` : videoGuyParts[0]}`);
+                photographersListArray.push(`שעה: ${data.videoGuyTime}`);
+                if (data.videoGuyNotes && data.videoGuyNotes.trim() !== '') {
+                    photographersListArray.push(`הערות: ${data.videoGuyNotes.trim()}`);
+                }
+                if (data.womenDance) photographersListArray.push('לא לצלם בנשים');
+                else photographersListArray.push('תצלם בנשים');
+                firstPhotographerInList = false;
+            }
+
+            if (data.photoGirl) {
+                if (!firstPhotographerInList) photographersListArray.push('~~~~~~~~~~~~~~~~~~~~~~');
+                photographersListArray.push('>> צלמת תמונות <<');
+                // Display full name for photo girl in email body
+                const photoGirlParts = data.photoGirl.split(' ');
+                photographersListArray.push(`צלמת: ${photoGirlParts.length > 1 ? `${photoGirlParts[0]} ${photoGirlParts[1]}` : photoGirlParts[0]}`);
+                photographersListArray.push(`שעה: ${data.photoGirlTime}`);
+                if (data.photoGirlNotes && data.photoGirlNotes.trim() !== '') {
+                    photographersListArray.push(`הערות: ${data.photoGirlNotes.trim()}`);
+                }
+                if (data.studioDance) {
+                    photographersListArray.push('את מצלמת סטודיו וריקודים');
+                }
+                firstPhotographerInList = false;
+            }
+
+            if (data.videoGirl) {
+                if (!firstPhotographerInList) photographersListArray.push('~~~~~~~~~~~~~~~~~~~~~~');
+                photographersListArray.push('>> צלמת וידאו <<');
+                // Display full name for video girl in email body
+                const videoGirlParts = data.videoGirl.split(' ');
+                photographersListArray.push(`צלמת: ${videoGirlParts.length > 1 ? `${videoGirlParts[0]} ${videoGirlParts[1]}` : videoGirlParts[0]}`);
+                photographersListArray.push(`שעה: ${data.videoGirlTime}`);
+                if (data.videoGirlNotes && data.videoGirlNotes.trim() !== '') {
+                     photographersListArray.push(`הערות: ${data.videoGirlNotes.trim()}`);
+                }
+                firstPhotographerInList = false;
+            }
+
+            if (photographersListArray.length > 0) {
+                emailBody += `\n` + photographersListArray.join('\n');
+            }
+
+            const finalEncodedBody = emailBody.trim()
+                .replace(/\n\n\n+/g, '\n\n')
+                .replace(/\n/g, '%0D%0A');
+
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipients.join(',')}&su=${encodeURIComponent(subject)}&body=${finalEncodedBody}`;
+            window.open(gmailUrl, '_blank');
+        }
+
+        function sendIndividualEmail(photographerTypeKey) {
+            const allFormData = collectFormData();
+
+            if (!allFormData.date || !allFormData.familyName || !allFormData.hall || !allFormData.chuppahTime) {
+                alert('יש למלא את פרטי האירוע הבסיסיים (תאריך, שם משפחה, אולם, שעת חופה) לפני שליחת מייל אישי.');
+                return;
+            }
+
+            const photographerValue = allFormData[photographerTypeKey];
+            if (!photographerValue) {
+                alert(`אנא בחר ${getPhotographerRoleName(photographerTypeKey, 'את/ה')} לפני שליחת מייל.`);
+                return;
+            }
+
+            const recipientEmail = extractEmail(photographerValue);
+            if (!recipientEmail) {
+                alert(`לא נמצאה כתובת מייל עבור ${getPhotographerRoleName(photographerTypeKey, 'ה')}. אנא בדוק בהגדרות.`);
+                return;
+            }
+
+            const hebrewDate = allFormData.date.split('-').reverse().join('/');
+            const dayOfWeek = getHebrewDayOfWeek(allFormData.date);
+            const photographerDisplayName = getPhotographerRoleName(photographerTypeKey, 'ה');
+
+            const subject = `פרטי צילום עבורך: ${dayOfWeek} ${hebrewDate} ${allFormData.familyName} (${photographerDisplayName})`;
+
+            const brideSiblingsText = allFormData.brideSiblings ? `${allFormData.brideSiblings}/${allFormData.brideMarried || '0'}` : 'לא צוין';
+            let brideDetailsForEmail = [`כלה: ${brideSiblingsText}`];
+            if (allFormData.brideNotes && allFormData.brideNotes.trim() !== '') brideDetailsForEmail.push(`הערות לכלה: ${allFormData.brideNotes}`);
+            if (allFormData.brideOrphanFather) brideDetailsForEmail.push('כלה יתומה מאבא');
+            if (allFormData.brideOrphanMother) brideDetailsForEmail.push('כלה יתומה מאמא');
+
+
+            const groomSiblingsText = allFormData.groomSiblings ? `${allFormData.groomSiblings}/${allFormData.groomMarried || '0'}` : 'לא צוין';
+            let groomDetailsForEmail = [`חתן: ${groomSiblingsText}`];
+            if (allFormData.groomNotes && allFormData.groomNotes.trim() !== '') groomDetailsForEmail.push(`הערות לחתן: ${allFormData.groomNotes}`);
+            if (allFormData.groomOrphanFather) groomDetailsForEmail.push('חתן יתום מאבא');
+            if (allFormData.groomOrphanMother) groomDetailsForEmail.push('חתן יתום מאמא');
+
+            const photographerTime = allFormData[photographerTypeKey + 'Time'];
+            const photographerNotes = allFormData[photographerTypeKey + 'Notes'];
+            let photographerSpecificsBody = [];
+            photographerSpecificsBody.push(`>> פרטי המשימה שלך - ${photographerDisplayName} <<`);
+           
+            // Display full name for the individual photographer in email body
+            const currentPhotographerParts = photographerValue.split(' ');
+            photographerSpecificsBody.push(`${getPhotographerRoleName(photographerTypeKey, '')}: ${currentPhotographerParts.length > 1 ? `${currentPhotographerParts[0]} ${currentPhotographerParts[1]}` : currentPhotographerParts[0]}`);
+            photographerSpecificsBody.push(`שעת התחלה: ${photographerTime}`);
+
+            if (photographerTypeKey === 'photoGirl') {
+                if (photographerNotes && photographerNotes.trim() !== '') {
+                    photographerSpecificsBody.push(`הערות נוספות: ${photographerNotes.trim()}`);
+                }
+                if (allFormData.studioDance) {
+                    photographerSpecificsBody.push('את מצלמת סטודיו וריקודים');
+                }
+            } else {
+                let otherSpecificNotes = [];
+                if (photographerNotes && photographerNotes.trim() !== '') {
+                    otherSpecificNotes.push(photographerNotes.trim());
+                }
+                if (photographerTypeKey === 'photoGuy' && allFormData.noPhotographerDance) {
+                    otherSpecificNotes.push('אין צלמת');
+                }
+                if (photographerTypeKey === 'videoGuy') {
+                    if (allFormData.womenDance) otherSpecificNotes.push('לא לצלם בנשים');
+                    else otherSpecificNotes.push('תצלם בנשים');
+                }
+                if (otherSpecificNotes.length > 0) {
+                    photographerSpecificsBody.push(`הערות עבורך: ${otherSpecificNotes.join(', ')}`);
+                }
+            }
+
+            let otherTeamMembersInfo = [];
+            const teamMemberRoles = {
+                photoGuy: { name: allFormData.photoGuy, role: 'צלם תמונות' },
+                videoGuy: { name: allFormData.videoGuy, role: 'צלם וידאו' },
+                photoGirl: { name: allFormData.photoGirl, role: 'צלמת תמונות' },
+                videoGirl: { name: allFormData.videoGirl, role: 'צלמת וידאו' }
+            };
+
+            for (const key in teamMemberRoles) {
+                if (key !== photographerTypeKey && teamMemberRoles[key].name) {
+                    // Display full name for other team members
+                    const otherTeamMemberParts = teamMemberRoles[key].name.split(' ');
+                    otherTeamMembersInfo.push(`${teamMemberRoles[key].role}: ${otherTeamMemberParts.length > 1 ? `${otherTeamMemberParts[0]} ${otherTeamMemberParts[1]}` : otherTeamMemberParts[0]}`);
+                }
+            }
+            const otherTeamMembersSection = otherTeamMembersInfo.length > 0 ? '\n\nצוות נוסף באירוע:\n' + otherTeamMembersInfo.join('\n') : '';
+
+            let generalAndSpecialNotesArray = [];
+            if (allFormData.notes && allFormData.notes.trim() !== '') {
+                generalAndSpecialNotesArray.push(allFormData.notes.trim());
+            }
+            if (allFormData.mitzvahTanzPresent && allFormData.newMitzvahTanzEndTime) {
+                generalAndSpecialNotesArray.push(`יש מצווה טאנץ עד השעה ${allFormData.newMitzvahTanzEndTime}`);
+            }
+            if (allFormData.possibleNightPhotosForPhotoGuy) {
+                generalAndSpecialNotesArray.push('יתכן צילומי לילה');
+            }
+            if (allFormData.hasStudioPhotographerForPhotoGuy) {
+                generalAndSpecialNotesArray.push('יש צלמת סטודיו וריקודים לצלם התמונות');
+            }
+            if (allFormData.studioDance && allFormData.photoGirl && allFormData.photoGirl.trim() !== '') {
+                const photoGirlName = allFormData.photoGirl.split(' ')[0];
+                generalAndSpecialNotesArray.push(`${photoGirlName} מצלמת סטודיו`);
+            }
+
+            let eventNotesSection = '';
+            if (generalAndSpecialNotesArray.length > 0) {
+                eventNotesSection = '\n\nהערות כלליות לאירוע:\n' + generalAndSpecialNotesArray.join('\n');
+            }
+
+            const body = `תאריך: ${hebrewDate} (${dayOfWeek})
+משפחת הכלה: ${allFormData.familyName.startsWith('משפחת ') ? allFormData.familyName : 'משפחת ' + allFormData.familyName}
+אולם: ${allFormData.hall}
+שעת חופה: ${allFormData.chuppahTime}
+
+${brideDetailsForEmail.join('\n')}
+
+${groomDetailsForEmail.join('\n')}
+
+${photographerSpecificsBody.join('\n')}${otherTeamMembersSection}${eventNotesSection}
+`
+                .trim()
+                .replace(/\n\n\n+/g, '\n\n')
+                .replace(/\n/g, '%0D%0A');
+
+            const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipientEmail}&su=${encodeURIComponent(subject)}&body=${body}`;
+            window.open(gmailUrl, '_blank');
+        }
+
+        function getPhotographerRoleName(typeKey, prefix = '') {
+            const roles = {
+                photoGuy: `${prefix}צלם תמונות`,
+                videoGuy: `${prefix}צלם וידאו`,
+                photoGirl: `${prefix}צלמת תמונות`,
+                videoGirl: `${prefix}צלמת וידאו`
+            };
+            const defaultRoleText = prefix === 'את/ה' ? `${prefix}צלם/צלמת` : `${prefix}צלם`;
+            return roles[typeKey] || defaultRoleText;
+        }
+
+        function extractEmail(photographerInfo) {
+            if (!photographerInfo) return '';
+            const emailMatch = photographerInfo.match(/\S+@\S+\.\S+/);
+            return emailMatch ? emailMatch[0] : '';
+        }
+
+        function exportData() {
+            const dataToExport = {
+                halls: appData.halls,
+                photographers: appData.photographers,
+                videographers: appData.videographers,
+                photographerGirls: appData.photographerGirls,
+                videographerGirls: appData.videographerGirls
+            };
+            const dataStr = JSON.stringify(dataToExport, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')}`;
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}-${now.getMinutes().toString().padStart(2, '0')}-${now.getSeconds().toString().padStart(2, '0')}`;
+            const exportFileDefaultName = `ניהול מייל צלמים ${dateStr} ${timeStr}.json`;
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+        }
+
+        function importData(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (importedData && typeof importedData.halls !== 'undefined' &&
+                        typeof importedData.photographers !== 'undefined') {
+
+                        appData.halls = importedData.halls || [];
+                        appData.photographers = importedData.photographers || [];
+                        appData.videographers = importedData.videographers || [];
+                        appData.photographerGirls = importedData.photographerGirls || [];
+                        appData.videographerGirls = importedData.videographerGirls || [];
+                        appData.drafts = appData.drafts || [];
+
+                        saveData();
+                        loadData();
+                        alert('הנתונים יובאו בהצלחה!');
+                    } else {
+                        alert('קובץ הגיבוי אינו בפורמט תקין, או שחסרים בו נתונים חיוניים.');
+                    }
+                } catch (error) {
+                    alert('שגיאה בקריאת הקובץ: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+
+            const dateFormGroup = document.getElementById('dateFormGroup');
+            const dateInputForPicker = document.getElementById('date');
+
+            if (dateFormGroup && dateInputForPicker) {
+                dateFormGroup.addEventListener('click', function() {
+                    if (typeof dateInputForPicker.showPicker === 'function') {
+                        try {
+                            dateInputForPicker.showPicker();
+                        } catch (error) {
+                            console.warn("Could not programmatically open date picker, trying focus:", error);
+                            dateInputForPicker.focus();
+                        }
+                    } else {
+                        console.warn("dateInput.showPicker() not supported, trying focus.");
+                        dateInputForPicker.focus();
+                    }
+                });
+            }
+
+            document.querySelectorAll('input[name="location"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    const locationDetailsInput = document.getElementById('locationDetails');
+                    if (this.value === 'outside') {
+                        locationDetailsInput.classList.remove('hidden');
+                    } else {
+                        locationDetailsInput.classList.add('hidden');
+                        locationDetailsInput.value = '';
+                    }
+                });
+            });
+
+            const mitzvahTanzTimeContainer = document.getElementById('mitzvahTanzTimeContainer');
+            const mitzvahTanzNoRadio = document.getElementById('mitzvahTanzNo');
+
+            document.querySelectorAll('input[name="mitzvahTanzPresence"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    mitzvahTanzTimeContainer.classList.toggle('hidden', this.value === 'no');
+                });
+            });
+            if (mitzvahTanzNoRadio) {
+                mitzvahTanzTimeContainer.classList.toggle('hidden', mitzvahTanzNoRadio.checked);
+            }
+
+            ['studioDanceBtn', 'noPhotographerDanceBtn', 'womenDanceBtn',
+             'brideOrphanFatherBtn', 'brideOrphanMotherBtn', 'groomOrphanFatherBtn', 'groomOrphanMotherBtn',
+             'possibleNightPhotosForPhotoGuyBtn', 'hasStudioPhotographerForPhotoGuyBtn']
+            .forEach(btnId => {
+                const btn = document.getElementById(btnId);
+                if (btn) {
+                    btn.addEventListener('click', function() { this.classList.toggle('active'); });
+                }
+            });
+
+            document.getElementById('sendEmail').addEventListener('click', function() {
+                const formData = collectFormData();
+                if (validateForm(formData)) {
+                    openGmailWithDetails(formData);
+                }
+            });
+
+            document.getElementById('sendEmailToPhotoGuyBtn').addEventListener('click', () => sendIndividualEmail('photoGuy'));
+            document.getElementById('sendEmailToVideoGuyBtn').addEventListener('click', () => sendIndividualEmail('videoGuy'));
+            document.getElementById('sendEmailToPhotoGirlBtn').addEventListener('click', () => sendIndividualEmail('photoGirl'));
+            document.getElementById('sendEmailToVideoGirlBtn').addEventListener('click', () => sendIndividualEmail('videoGirl'));
+
+            document.getElementById('saveDraft').addEventListener('click', function() {
+                const formData = collectFormData();
+                 if (validateForm(formData)) {
+                    appData.drafts.push(formData);
+                    saveData();
+                    alert('הטיוטה נשמרה בהצלחה!');
+                }
+            });
+
+            document.getElementById('settingsBtn').addEventListener('click', function() {
+                const settingsPanel = document.getElementById('settingsPanel');
+                settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
+            });
+
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+
+            function addToList(listName, firstNameId, lastNameId, emailId = null) {
+                const firstName = document.getElementById(firstNameId).value.trim();
+                const lastName = document.getElementById(lastNameId).value.trim();
+                const email = emailId ? document.getElementById(emailId).value.trim() : '';
+
+                if (!firstName || !lastName || (emailId && !email)) {
+                    alert('אנא מלא את כל השדות (שם פרטי, שם משפחה, ומייל במידת הצורך).');
+                    return;
+                }
+
+                const fullName = `${firstName} ${lastName}`;
+                let newItemValue;
+
+                if (emailId) {
+                    if (!/\S+@\S+\.\S+/.test(email)) {
+                        alert('אנא הזן כתובת מייל תקינה.');
+                        return;
+                    }
+                    newItemValue = `${fullName} ${email}`;
+                } else {
+                    newItemValue = fullName;
+                }
+
+                if (!appData[listName].find(item => item.toLowerCase() === newItemValue.toLowerCase())) {
+                    appData[listName].push(newItemValue);
+                    appData[listName].sort((a, b) => a.localeCompare(b, 'he'));
+                    saveData();
+                    if (isPhotographerListType(listName)) {
+                        loadPhotographers();
+                    } else if (listName === 'halls') {
+                        loadData();
+                    }
+                    // Clear the input fields
+                    document.getElementById(firstNameId).value = '';
+                    document.getElementById(lastNameId).value = '';
+                    if (emailId) {
+                        document.getElementById(emailId).value = '';
+                    }
+                } else {
+                    alert('הפריט כבר קיים ברשימה.');
+                }
+            }
+            
+            document.getElementById('addHall').addEventListener('click', () => {
+                const newHallInput = document.getElementById('newHall');
+                const newHallName = newHallInput.value.trim();
+                if (newHallName) {
+                    if (!appData.halls.includes(newHallName)) {
+                        appData.halls.push(newHallName);
+                        appData.halls.sort((a, b) => a.localeCompare(b, 'he'));
+                        saveData();
+                        loadData();
+                        newHallInput.value = '';
+                    } else {
+                        alert('אולם זה כבר קיים ברשימה.');
+                    }
+                } else {
+                    alert('יש להזין שם אולם.');
+                }
+            });
+
+
+            document.getElementById('addPhotographer').addEventListener('click', () => addToList('photographers', 'newPhotographerFirstName', 'newPhotographerLastName', 'newPhotographerEmail'));
+            document.getElementById('addVideographer').addEventListener('click', () => addToList('videographers', 'newVideographerFirstName', 'newVideographerLastName', 'newVideographerEmail'));
+            document.getElementById('addPhotographerGirl').addEventListener('click', () => addToList('photographerGirls', 'newPhotographerGirlFirstName', 'newPhotographerGirlLastName', 'newPhotographerGirlEmail'));
+            document.getElementById('addVideographerGirl').addEventListener('click', () => addToList('videographerGirls', 'newVideographerGirlFirstName', 'newVideographerGirlLastName', 'newVideographerGirlEmail'));
+
+            document.getElementById('exportData').addEventListener('click', exportData);
+
+            document.getElementById('importFile').addEventListener('change', function(e) {
+                const importBtn = document.getElementById('importData');
+                importBtn.disabled = e.target.files.length === 0;
+            });
+
+            document.getElementById('importData').addEventListener('click', function() {
+                const fileInput = document.getElementById('importFile');
+                if (fileInput.files.length > 0) {
+                    if (confirm('האם אתה בטוח שברצונך לייבא נתונים? כל הנתונים הנוכחיים (למעט טיוטות שמורות) יימחקו ויוחלפו בנתוני הקובץ!')) {
+                        importData(fileInput.files[0]);
+                    }
+                } else {
+                    alert('אנא בחר קובץ לייבוא.');
+                }
+            });
+
+            const mainForm = document.querySelector('.container > h1').closest('div');
+            const resetButton = mainForm.querySelector('button.reset');
+
+            if(resetButton) {
+                resetButton.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    if (confirm('האם אתה בטוח שברצונך לנקות את הטופס?')) {
+                        document.getElementById('date').value = '';
+                        document.getElementById('familyName').value = '';
+                        document.getElementById('hall').value = '';
+                        document.querySelector('input[name="location"][value="hallOutside"]').checked = true;
+                        document.getElementById('locationDetails').classList.add('hidden');
+                        document.getElementById('locationDetails').value = '';
+
+                        ['brideSiblings', 'brideMarried', 'brideNotes', 'groomSiblings', 'groomMarried', 'groomNotes'].forEach(id => document.getElementById(id).value = '');
+
+                        ['brideOrphanFatherBtn', 'brideOrphanMotherBtn', 'groomOrphanFatherBtn', 'groomOrphanMotherBtn',
+                         'noPhotographerDanceBtn', 'womenDanceBtn', 'studioDanceBtn',
+                         'possibleNightPhotosForPhotoGuyBtn', 'hasStudioPhotographerForPhotoGuyBtn']
+                        .forEach(id => {
+                           const btn = document.getElementById(id);
+                           if(btn) btn.classList.remove('active');
+                        });
+
+                        const mitzvahNo = document.getElementById('mitzvahTanzNo');
+                        if (mitzvahNo) mitzvahNo.checked = true;
+                        const mitzvahTimeContainer = document.getElementById('mitzvahTanzTimeContainer');
+                        if (mitzvahTimeContainer) mitzvahTimeContainer.classList.add('hidden');
+                        const mitzvahTimeInput = document.getElementById('newMitzvahTanzEndTime');
+                        if (mitzvahTimeInput) mitzvahTimeInput.value = "02:00";
+
+                        ['photoGuy', 'videoGuy', 'photoGirl', 'videoGirl'].forEach(id => {
+                            document.getElementById(id).selectedIndex = 0;
+                            document.getElementById(id + 'Time').value = getDefaultTime(id);
+                            document.getElementById(id + 'Notes').value = '';
+                        });
+
+                        document.getElementById('chuppahTime').value = "19:00";
+                        document.getElementById('notes').value = '';
+                    }
+                });
+            }
+
+            function getDefaultTime(photographerType) {
+                switch(photographerType) {
+                    case 'photoGuy': return '15:00';
+                    case 'videoGuy': return '16:30';
+                    case 'photoGirl': return '20:30';
+                    case 'videoGirl': return '20:30';
+                    default: return '';
+                }
+            }
+
+        });
+
+        window.removeItem = removeItem;
+        window.editItem = editItem;
+    </script>
+</body>
+</html>
+                </body>
+                </html>
+            
